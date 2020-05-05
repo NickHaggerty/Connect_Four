@@ -1,0 +1,59 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static int turn = 0;
+    public static GameBoard board = new GameBoard();
+
+
+    public static void main(String[] args) {
+
+    System.out.println("Hello! Welcome to connect four!");
+
+    board.displayBoard();
+
+    while(!(board.checkFilled()) && board.checkWinner() == 0) {
+        takeTurn();
+    }
+
+    if(board.checkFilled()){
+        System.out.println("Cats Game!");
+    }
+
+    }
+
+
+
+
+    public static void takeTurn(){
+        int choice = 0;
+        Scanner s = new Scanner(System.in);
+        System.out.println("Pick a number 1 - 7   Player " + ((turn % 2) + 1));
+        choice = s.nextInt();
+
+        while(choice < 1 || choice > 7){
+            System.out.println("Invalid number, pick a number 1 - 7   Player " + ((turn % 2) + 1));
+            choice = s.nextInt();
+        }
+
+        if(board.addTurn(choice)) {
+
+            board.displayBoard();
+            int wins = board.checkWinner();
+            if (wins > 0) {
+                System.out.println("Player " + wins + " wins!");
+            }
+
+
+            turn++;
+        } else {
+            System.out.println("Invalid choice");
+        }
+
+
+
+    }
+
+
+
+}
